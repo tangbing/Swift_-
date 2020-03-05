@@ -10,7 +10,6 @@ import UIKit
 
 let TOP_HEIGHT: CGFloat = UIDevice.current.isiPhoneXMore() ? 88 : 64
 
-
 class ViewController: UIViewController {
     static let cellId = "cellId"
     static let kHeight: CGFloat = 250
@@ -39,12 +38,11 @@ class ViewController: UIViewController {
         
     }()
     override func viewWillAppear(_ animated: Bool) {
-        
+          // 导航栏完全透明
 //        navigationController?.navigationBar.shadowImage = UIImage()
-//         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "滚动效果"
@@ -75,6 +73,10 @@ class ViewController: UIViewController {
             navBarBackgroundAlpha = alpha
             
         }
+    }
+    
+    deinit {
+        tableview.removeObserver(self, forKeyPath: "contentOffset")
     }
 }
 extension UINavigationController{
@@ -140,8 +142,8 @@ extension UIDevice {
     public func isiPhoneXMore() -> Bool {
         var isMore:Bool = false
         if #available(iOS 11.0, *) {
-            if let aa = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
-                isMore = aa > 0.0
+            if let  more = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
+                isMore = more > 0.0
             }
         }
         return isMore
